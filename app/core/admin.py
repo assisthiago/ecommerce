@@ -1,41 +1,42 @@
-from django.contrib import admin
+# from django.contrib import admin
 
-from app.core.models import (
-    Address,
-    Category,
-    Discount,
-    Inventory,
-    Payment,
-    Product,
-    Profile,
-)
-
-
-class AddressInline(admin.TabularInline):
-    model = Address
+# from app.core.models import (
+#     Address,
+#     Category,
+#     Discount,
+#     Inventory,
+#     Payment,
+#     Product,
+#     Profile,
+# )
 
 
-class CategoryInline(admin.StackedInline):
-    model = Category
+# class AddressInline(admin.TabularInline):
+#     model = Address
 
 
-class DiscountInline(admin.TabularInline):
-    model = Discount
+# class DiscountInline(admin.TabularInline):
+#     model = Discount
 
 
-class InventoryInline(admin.StackedInline):
-    model = Inventory
+# class InventoryInline(admin.StackedInline):
+#     model = Inventory
 
 
-class PaymentInline(admin.StackedInline):
-    model = Payment
+# class PaymentInline(admin.StackedInline):
+#     model = Payment
 
 
-@admin.register(Profile)
-class ProfileAdmin(admin.ModelAdmin):
-    inlines = [AddressInline, PaymentInline]
+# @admin.register(Category)
+# class CategoryAdmin(admin.ModelAdmin):
+#     pass
 
 
-@admin.register(Product)
-class ProductAdmin(admin.ModelAdmin):
-    inlines = [CategoryInline, DiscountInline, InventoryInline]
+# @admin.register(Profile)
+# class ProfileAdmin(admin.ModelAdmin):
+#     inlines = [AddressInline, PaymentInline]
+
+
+# @admin.register(Product)
+# class ProductAdmin(admin.ModelAdmin):
+#     inlines = [DiscountInline, InventoryInline]
