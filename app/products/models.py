@@ -17,7 +17,7 @@ class Product(models.Model):
 
     category = models.OneToOneField(
         Category,
-        related_name='product',
+        related_name='products',
         on_delete=models.CASCADE,
         verbose_name='categoria')
 

@@ -15,9 +15,9 @@ class Discount(models.Model):
     created_at = models.DateTimeField('criado em', auto_now_add=True)
     updated_at = models.DateTimeField('atualizado em', auto_now=True)
 
-    product = models.OneToOneField(
+    product = models.ForeignKey(
         Product,
-        related_name='discount',
+        related_name='discounts',
         on_delete=models.CASCADE,
         verbose_name='produto')
 
