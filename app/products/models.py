@@ -22,7 +22,7 @@ class Product(models.Model):
         verbose_name='categoria')
 
     def __str__(self):
-        return self.name
+        return str(self.id)[:8].upper()
 
     class Meta:
         verbose_name = 'produto'

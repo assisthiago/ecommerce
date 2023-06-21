@@ -1,7 +1,7 @@
 from django.apps import AppConfig
 
 
-class ProductsConfig(AppConfig):
+class PaymentsConfig(AppConfig):
     default_auto_field = 'django.db.models.BigAutoField'
-    name = 'app.products'
-    verbose_name = 'produto'
+    name = 'app.payments'
+    verbose_name = 'pagamento'

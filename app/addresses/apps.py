@@ -1,6 +1,7 @@
 from django.apps import AppConfig
 
 
-class CoreConfig(AppConfig):
+class AddressesConfig(AppConfig):
     default_auto_field = 'django.db.models.BigAutoField'
-    name = 'app.core'
+    name = 'app.addresses'
+    verbose_name = 'endereço'
