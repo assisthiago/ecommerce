@@ -38,26 +38,44 @@
 
                 </div>
 
-                <div class="card-header px-4 pt-4">
+                <div class="card-header px-4 pt-4 pb-0">
+
+                    {% for discount in product.discounts.all %}
+                        {% if discount.available %}
+                            <div class="card-actions float-end">
+                                <span class="badge bg-primary">
+                                    {{ discount.name }}
+                                </span>
+                            </div>
+                        {% endif %}
+                    {% endfor %}
+
                     <h5 class="card-title mb-0">{{ product.name }}</h5>
                     {% if product.available %}
                         <div class="badge bg-success my-2">Disponível</div>
                     {% else %}
-                        <div class="badge bg-danger my-2">Em falta</div>
+                        <div class="badge bg-danger my-2">Esgotado</div>
                     {% endif %}
                 </div>
-                <div class="card-body">
-                    {% regroup product.inventories.all by color as color_list %}
-                    {% for color in color_list %}
-                        <p class="card-text mb-{% if forloop.last %}3{% else %}0{% endif %}">
-                            <strong>{{ color.grouper }}</strong>
-                            <br>
-                            {% for c in color.list %}
-                                <span class="badge bg-secondary">{{ c.size|upper }}</span>
-                            {% endfor %}
+                <div class="card-body px-4 pt-0">
+                    <div class="row">
+                        <div class="col-12">
+                            <p>R${{ product.price }}</p>
+                        </div>
+                        <div class="col-12">
+                            {% regroup product.inventories.all by color as color_list %}
+                            {% for color in color_list %}
+                                <p class="card-text mb-{% if forloop.last %}3{% else %}0{% endif %}">
+                                    <strong>{{ color.grouper }}</strong>
+                                    <br>
+                                    {% for c in color.list %}
+                                        <span class="badge bg-secondary">{{ c.size|upper }}</span>
+                                    {% endfor %}
 
-                        </p>
-                    {% endfor %}
+                                </p>
+                            {% endfor %}
+                        </div>
+                    </div>
                     <a href="#" class="card-link">Ver detalhes</a>
                 </div>
             </div>

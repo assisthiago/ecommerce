@@ -26,6 +26,7 @@ class Product(models.Model):
 
     class Meta:
         db_table = 'product'
+        ordering = ['-available', '-price', 'name']
         verbose_name = 'produto'
         verbose_name_plural = 'produtos'
 
