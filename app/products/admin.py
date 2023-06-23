@@ -1,14 +1,25 @@
 from django.contrib import admin
+from django.db import models
 
 from app.categories.filters import CategoryListFilter
-from app.discounts.admin import DiscountTabularInline
-from app.inventories.admin import InventoryTabularInline
-from app.products.models import Product
+from app.discounts.admin import DiscountInline
+from app.inventories.admin import InventoryInline
+from app.products.models import Photo, Product
+
+
+class PhotoInline(admin.TabularInline):
+    model = Photo
+    min_num = 1
+    max_num = 5
+    extra = 5
 
 
 @admin.register(Product)
 class ProductAdmin(admin.ModelAdmin):
-    inlines = [DiscountTabularInline, InventoryTabularInline]
+    inlines = [
+        PhotoInline,
+        DiscountInline,
+        InventoryInline]
 
     list_display = [
         'get_id',
@@ -25,7 +36,7 @@ class ProductAdmin(admin.ModelAdmin):
         ('available', admin.BooleanFieldListFilter),
         CategoryListFilter]
 
-    ordering = ['name', 'price']
+    ordering = ['-available', 'category', 'name']
 
     search_fields = ['name']
     search_help_text = 'Busque pelo nome do produto.'

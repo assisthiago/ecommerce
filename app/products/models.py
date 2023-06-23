@@ -40,6 +40,9 @@ class Photo(models.Model):
         on_delete=models.CASCADE,
         verbose_name='foto')
 
+    def __str__(self):
+        return self.file.name
+
     class Meta:
         db_table = 'photo'
         verbose_name = 'foto'
