@@ -25,5 +25,6 @@ class Discount(models.Model):
         return self.name
 
     class Meta:
+        db_table = 'discount'
         verbose_name = 'desconto'
         verbose_name_plural = 'descontos'
