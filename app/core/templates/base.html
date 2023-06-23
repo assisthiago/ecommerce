@@ -1,0 +1,38 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+	<meta charset="utf-8">
+	<meta http-equiv="X-UA-Compatible" content="IE=edge">
+	<meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+	<meta name="description" content="E-commerce">
+	<meta name="author" content="Thiago Assis">
+
+	<title>E-commerce</title>
+
+	<link rel="shortcut icon" href="{% static 'img/favicon.ico' %}">
+
+	<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500&display=swap" rel="stylesheet">
+
+	<link href="{% static 'css/light.css' %}" rel="stylesheet">
+</head>
+
+<body data-theme="ligth" data-layout="fluid" data-sidebar-position="left" data-sidebar-behavior="sticky">
+	<div class="wrapper">
+		<div class="main">
+			{% include 'partials/_nav.html' %}
+
+			<main class="content">
+				{% block content %}{% endblock content %}
+			</main>
+
+			{% include 'partials/_footer.html' %}
+		</div>
+	</div>
+
+	<script src="{% static 'js/app.js' %}"></script>
+
+</body>
+
+</html>
