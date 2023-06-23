@@ -24,5 +24,7 @@ class Inventory(models.Model):
         return f'{self.quantity} em estoque'
 
     class Meta:
+        db_table = 'inventory'
+        unique_together = ['color', 'size']
         verbose_name = 'inventário'
         verbose_name_plural = 'inventários'
