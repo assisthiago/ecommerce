@@ -15,6 +15,8 @@ class ProfileAdmin(admin.ModelAdmin):
         'created_at',
         'updated_at']
 
+    ordering = ['user__first_name']
+
     search_fields = ['user__first_name', 'user__last_name', 'user__email']
     search_help_text = 'Busque pelo nome, sobrenome ou e-mail.'
 

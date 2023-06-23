@@ -7,42 +7,37 @@
         {% for product in products %}
         <div class="col-12 col-md-4 col-lg-4">
             <div class="card">
-                <div id="carouselIndicators-{{ product }}" class="carousel slide" data-bs-ride="carousel">
+                <div id="carouselIndicators{{ product }}" class="carousel slide" data-bs-ride="carousel">
                     <ol class="carousel-indicators">
-                        <li data-bs-target="#carouselIndicators-{{ product }}" data-bs-slide-to="0" class="active" aria-current="true"></li>
-                        <li data-bs-target="#carouselIndicators-{{ product }}" data-bs-slide-to="1" class=""></li>
-                        <li data-bs-target="#carouselIndicators-{{ product }}" data-bs-slide-to="2" class=""></li>
+                        {% for photo in product.photos.all %}
+                            <li data-bs-target="#carouselIndicators{{ product }}" data-bs-slide-to="{{ forloop.counter0 }}"
+                                {% if photo.default %}
+                                    class="active" aria-current="true"
+                                {% endif %}
+                            ></li>
+                        {% endfor %}
                     </ol>
                     <div class="carousel-inner">
-                        <div class="carousel-item">
-                            <img class="d-block w-100" src="{{ product.photo_1.url }}" alt="{{ product.name }}">
-                        </div>
-
-                        {% if product.photo_2 %}
-                            <div class="carousel-item active">
-                                <img class="d-block w-100" src="{{ product.photo_2.url }}" alt="{{ product.name }}">
+                        {% for photo in product.photos.all %}
+                            <div class="carousel-item {% if photo.default %}active{% endif %}">
+                                <img class="d-block w-100" src="{{ photo }}" alt="{{ product.name }}">
                             </div>
-                        {% endif %}
-                        {% if product.photo_3 %}
-                            <div class="carousel-item active">
-                                <img class="d-block w-100" src="{{ product.photo_3.url }}" alt="{{ product.name }}">
-                            </div>
-                        {% endif %}
-                        {% if product.photo_4 %}
-                            <div class="carousel-item active">
-                                <img class="d-block w-100" src="{{ product.photo_4.url }}" alt="{{ product.name }}">
-                            </div>
-                        {% endif %}
+                        {% endfor %}
                     </div>
-                    <a class="carousel-control-prev" href="#carouselIndicators-{{ product }}" role="button" data-bs-slide="prev">
-                        <span class="carousel-control-prev-icon" aria-hidden="true"></span>
-                        <span class="sr-only">Previous</span>
-                    </a>
-                    <a class="carousel-control-next" href="#carouselIndicators-{{ product }}" role="button" data-bs-slide="next">
-                        <span class="carousel-control-next-icon" aria-hidden="true"></span>
-                        <span class="sr-only">Next</span>
-                    </a>
+
+                    {% if product.photos.all|length > 1 %}
+                        <a class="carousel-control-prev" href="#carouselIndicators{{ product }}" role="button" data-bs-slide="prev">
+                            <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+                            <span class="sr-only">Previous</span>
+                        </a>
+                        <a class="carousel-control-next" href="#carouselIndicators{{ product }}" role="button" data-bs-slide="next">
+                            <span class="carousel-control-next-icon" aria-hidden="true"></span>
+                            <span class="sr-only">Next</span>
+                        </a>
+                    {% endif %}
+
                 </div>
+
                 <div class="card-header px-4 pt-4">
                     <h5 class="card-title mb-0">{{ product.name }}</h5>
                     {% if product.available %}
@@ -52,16 +47,17 @@
                     {% endif %}
                 </div>
                 <div class="card-body">
-                    <p class="card-text mb-0">
-                        {% for inventory in product.inventories.all %}
-                            <span class="badge rounded-pill bg-secondary">{{ inventory.size }}</span>
-                        {% endfor %}
-                    </p>
-                    <p class="card-text">
-                        {% for inventory in product.inventories.all %}
-                            <span class="badge bg-secondary">{{ inventory.color }}</span>
-                        {% endfor %}
-                    </p>
+                    {% regroup product.inventories.all by color as color_list %}
+                    {% for color in color_list %}
+                        <p class="card-text mb-{% if forloop.last %}3{% else %}0{% endif %}">
+                            <strong>{{ color.grouper }}</strong>
+                            <br>
+                            {% for c in color.list %}
+                                <span class="badge bg-secondary">{{ c.size|upper }}</span>
+                            {% endfor %}
+
+                        </p>
+                    {% endfor %}
                     <a href="#" class="card-link">Ver detalhes</a>
                 </div>
             </div>

@@ -1,5 +1,4 @@
 from django.contrib import admin
-from django.db import models
 
 from app.categories.filters import CategoryListFilter
 from app.discounts.admin import DiscountInline
