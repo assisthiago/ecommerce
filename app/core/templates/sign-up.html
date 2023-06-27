@@ -1,0 +1,98 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+	<meta charset="utf-8">
+	<meta http-equiv="X-UA-Compatible" content="IE=edge">
+	<meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+	<meta name="description" content="E-commerce">
+	<meta name="author" content="Thiago Assis">
+
+	<title>E-commerce</title>
+
+	<link rel="shortcut icon" href="{% static 'img/favicon.ico' %}">
+
+	<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500&display=swap" rel="stylesheet">
+
+	<link href="{% static 'css/light.css' %}" rel="stylesheet">
+</head>
+
+<body data-theme="default" data-layout="fluid" data-sidebar-position="left" data-sidebar-behavior="sticky">
+	<div class="main d-flex justify-content-center w-100">
+		<main class="content d-flex p-0">
+			<div class="container d-flex flex-column">
+				<div class="h-100">
+					<div class="col-sm-10 col-md-8 col-lg-6 mx-auto d-table h-100">
+						<div class="d-table-cell align-middle">
+
+							<div class="text-center mt-4">
+								<h1 class="h2">Bem-vindo!</h1>
+								<p class="lead">
+									Cadastre sua conta para continuar
+								</p>
+							</div>
+
+							<div class="card">
+								<div class="card-body">
+									<div class="m-sm-4">
+										<form>
+											<div class="row">
+												<div class="mb-3 col-sm-12 col-md-6 col-lg-6">
+													<label class="form-label">Nome</label>
+													<input class="form-control form-control-lg" type="text" name="first_name"
+														placeholder="Entre com o seu nome" required/>
+												</div>
+												<div class="mb-3 col-sm-12 col-md-6 col-lg-6">
+													<label class="form-label">Sobrenome</label>
+													<input class="form-control form-control-lg" type="text" name="last_name"
+													placeholder="Entre com o sobrenome" required/>
+												</div>
+											</div>
+											<div class="mb-3">
+												<label class="form-label">E-mail</label>
+												<input class="form-control form-control-lg" type="email" name="email"
+													placeholder="Entre com o seu e-mail" required/>
+											</div>
+											<div class="mb-3">
+												<label class="form-label">Senha</label>
+												<input class="form-control form-control-lg" type="password"
+													name="password" placeholder="Entre com a sua senha" required/>
+												<small>
+													Sua senha não pode ser muito parecida com o resto das suas informações pessoais.
+												</small><br>
+												<small>
+													Sua senha precisa conter pelo menos 8 caracteres.
+												</small><br>
+												<small>
+													Sua senha não pode ser uma senha comumente utilizada.
+												</small><br>
+												<small>
+													Sua senha não pode ser inteiramente numérica.
+												</small>
+											</div>
+											<div class="mb-3">
+												<label class="form-label">Confirmar senha</label>
+												<input class="form-control form-control-lg" type="password"
+													name="password" placeholder="Confirme sua senha" required/>
+											</div>
+											<div class="text-center mt-3">
+												<button type="submit" class="btn btn-lg btn-primary">Cadastrar</button>
+												<input type=button class="btn btn-lg btn-link"
+													value="Voltar" onClick="javascript:history.go(-1);">
+											</div>
+										</form>
+									</div>
+								</div>
+							</div>
+
+						</div>
+					</div>
+				</div>
+			</div>
+		</main>
+	</div>
+
+</body>
+
+</html>

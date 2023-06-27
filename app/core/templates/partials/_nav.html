@@ -1,7 +1,7 @@
 <nav class="navbar navbar-expand navbar-light navbar-bg">
     <form class="d-none d-sm-inline-block">
         <div class="input-group input-group-navbar">
-            <input type="text" class="form-control" placeholder="Pesquisar…" aria-label="Search">
+            <input type="text" class="form-control" placeholder="Pesquisar..." aria-label="Search">
             <button class="btn" type="button">
                 <i class="align-middle" data-feather="search"></i>
             </button>
@@ -30,14 +30,32 @@
 
     <div class="navbar-collapse collapse">
         <ul class="navbar-nav navbar-align">
-            <li class="nav-item">
-                <a href="#" class="nav-link d-none d-sm-inline-block">
-                    <span>
-                        <i class="align-middle" data-feather="log-in"></i>
-                        Entrar
-                    </span>
-                </a>
-            </li>
+
+            {% if user %}
+                <li class="nav-item dropdown">
+                    <a class="nav-link dropdown-toggle d-none d-sm-inline-block" href="#" data-bs-toggle="dropdown">
+                        <i class="align-middle fas fa-fw fa-user-circle"></i>
+                        <span class="text-dark">{{ user }}</span>
+                    </a>
+                    <div class="dropdown-menu dropdown-menu-end">
+                        <a class="dropdown-item" href="pages-profile.html">
+                            <i class="align-middle" data-feather="user"></i>
+                            Minha conta
+                        </a>
+                        <div class="dropdown-divider"></div>
+                        <a class="dropdown-item" href="{% url 'sign-out' %}">Sair</a>
+                    </div>
+                </li>
+            {% else %}
+                <li class="nav-item">
+                    <a href="{% url 'sign-in' %}" class="nav-link d-none d-sm-inline-block">
+                        <span>
+                            <i class="align-middle" data-feather="log-in"></i>
+                            Entrar
+                        </span>
+                    </a>
+                </li>
+            {% endif %}
         </ul>
     </div>
 </nav>
