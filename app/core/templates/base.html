@@ -21,7 +21,7 @@
 <body data-theme="ligth" data-layout="fluid" data-sidebar-position="left" data-sidebar-behavior="sticky">
 	<div class="wrapper">
 		<div class="main">
-			{% include 'partials/_nav.html' %}
+			{% include 'partials/_nav.html' with categories=categories %}
 
 			<main class="content">
 				{% block content %}{% endblock content %}

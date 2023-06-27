@@ -15,11 +15,15 @@
                 Categorias
             </a>
             <div class="dropdown-menu dropdown-menu-start dropdown-mega" aria-labelledby="servicesDropdown">
-                <div class="d-md-flex align-items-start justify-content-start">
-                    <div class="dropdown-mega-list">
-                        <a class="dropdown-item" href="#">TO DO</a>
+
+                {% for category in categories %}
+                    <div class="d-md-flex align-items-start justify-content-start">
+                        <div class="dropdown-mega-list">
+                            <a class="dropdown-item" href="#">{{ category.name }}</a>
+                        </div>
                     </div>
-                </div>
+                {% endfor %}
+
             </div>
         </li>
     </ul>
