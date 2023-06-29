@@ -7,7 +7,7 @@ from django.test import TestCase
 from app.profiles.models import Profile
 
 
-class AddressModelTest(TestCase):
+class ProfileModelTest(TestCase):
     def setUp(self):
         user = User.objects.create(
             username='user@test.com',
