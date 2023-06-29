@@ -16,7 +16,7 @@ class AddressModelTest(TestCase):
             first_name='user',
             last_name='test')
 
-        profile = Profile.objects.create(
+        self.profile = Profile.objects.create(
             birthday=date(1994, 5, 30),
             gender='m',
             phone=9999999999,
@@ -31,7 +31,7 @@ class AddressModelTest(TestCase):
             state='Estado',
             country='País',
             phone=99999999999,
-            profile=profile)
+            profile=self.profile)
 
     def test_create(self):
         self.assertTrue(Address.objects.exists())
@@ -54,3 +54,21 @@ class AddressModelTest(TestCase):
             with self.subTest():
                 field = Address._meta.get_field(field_name)
                 self.assertTrue(field.blank)
+
+    def test_full_address(self):
+        self.address = Address.objects.create(
+            zip_code=12345678,
+            street='Rua',
+            number=1,
+            complement='Complemento',
+            reference='Referência',
+            neighborhood='Bairro',
+            city='Cidade',
+            state='Estado',
+            country='País',
+            phone=99999999999,
+            profile=self.profile)
+
+        self.assertEqual(
+            'Rua 1, Bairro - Complemento - Referência - Cidade - Estado - País, 12345678',
+            str(self.address))

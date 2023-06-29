@@ -1,7 +1,8 @@
+from django.core.files.uploadedfile import SimpleUploadedFile
 from django.test import TestCase
 
 from app.categories.models import Category
-from app.products.models import Product
+from app.products.models import Photo, Product
 
 
 class ProductModelTest(TestCase):
@@ -31,3 +32,24 @@ class ProductModelTest(TestCase):
     def test_available_default(self):
         self.assertFalse(self.product.available)
 
+
+class PhotoModelTest(TestCase):
+    def setUp(self):
+        category = Category.objects.create(name='categoria')
+        product = Product.objects.create(
+            name='produto',
+            price=12.34,
+            category=category)
+
+        self.photo = Photo.objects.create(
+            file=SimpleUploadedFile(
+                name='image.jpeg',
+                content=open('app/core/static/img/favicon.ico', 'rb').read(),
+                content_type='image/jpeg'),
+            product=product)
+
+    def test_create(self):
+        self.assertTrue(Photo.objects.exists())
+
+    def test_str(self):
+        self.assertIn('image_', str(self.photo))
