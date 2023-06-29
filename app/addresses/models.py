@@ -24,6 +24,22 @@ class Address(models.Model):
     profile = models.ForeignKey(
         Profile, related_name='address', on_delete=models.CASCADE)
 
+    def __str__(self):
+        address = f'{self.street} {self.number}, {self.neighborhood}'
+
+        if complement := self.complement:
+            address = f'{address} - {complement}'
+
+        if reference := self.reference:
+            address = f'{address} - {reference}'
+
+        address = f'{address} - {self.city}'
+        address = f'{address} - {self.state}'
+        address = f'{address} - {self.country}'
+        address = f'{address}, {self.zip_code}'
+
+        return address
+
     class Meta:
         db_table = 'address'
         unique_together = ['zip_code', 'street', 'number', 'complement']
