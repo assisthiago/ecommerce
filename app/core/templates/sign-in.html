@@ -16,6 +16,7 @@
 	<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500&display=swap" rel="stylesheet">
 
 	<link href="{% static 'css/light.css' %}" rel="stylesheet">
+	<link href="{% static 'css/custom.css' %}" rel="stylesheet">
 </head>
 
 <body data-theme="default" data-layout="fluid" data-sidebar-position="left" data-sidebar-behavior="sticky">
@@ -25,7 +26,17 @@
 				<div class="h-100">
 					<div class="col-sm-10 col-md-8 col-lg-6 mx-auto d-table h-100">
 						<div class="d-table-cell align-middle">
-
+							{% if messages %}
+								{% for message in messages %}
+									<div class="alert alert-{% if message.tags == 'error' %}danger{% else %}{{ message.tags }}{% endif %} alert-outline alert-dismissible" role="alert">
+										<button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+										<div class="alert-icon">
+											<i class="far fa-fw fa-bell"></i>
+										</div>
+										<div class="alert-message">{{ message }}</div>
+									</div>
+								{% endfor %}
+							{% endif %}
 							<div class="text-center mt-4">
 								<h1 class="h2">Bem-vindo!</h1>
 								<p class="lead">
@@ -36,17 +47,23 @@
 							<div class="card">
 								<div class="card-body">
 									<div class="m-sm-4">
-										<form action="." method="post">
+										<form action="{% url 'sign-in' %}" method="post">
 											{% csrf_token %}
 											<div class="mb-3">
 												<label class="form-label">{{ form.email.label }}</label>
-												{{ form.email.errors }}
 												{{ form.email }}
+
+												{% for error in form.email.errors %}
+													<label id="validation-email-error" class="error small form-text invalid-feedback">{{ error }}</label>
+												{% endfor %}
+
 											</div>
 											<div class="mb-3">
 												<label class="form-label">{{ form.password.label }}</label>
-												{{ form.password.errors }}
 												{{ form.password }}
+												{% for error in form.password.errors %}
+													<label id="validation-email-error" class="error small form-text invalid-feedback">{{ error }}</label>
+												{% endfor %}
 												<small>
 													<a href="{% url 'recover-password' %}">Esqueceu a senha?</a>
 												</small>
@@ -78,6 +95,8 @@
 			</div>
 		</main>
 	</div>
+
+	<script src="{% static 'js/app.js' %}"></script>
 
 </body>
 

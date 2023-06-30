@@ -1,0 +1,9 @@
+.alert {
+    position: fixed;
+    top: 1rem;
+    right: 1rem;
+}
+
+.alert-message {
+    padding: .95rem 2.85rem .95rem .95rem;
+}

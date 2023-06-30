@@ -1,3 +1,5 @@
+from django.contrib import messages
+from django.contrib.auth import authenticate, login, logout
 from django.shortcuts import redirect, render
 
 from app.categories.models import Category
@@ -16,6 +18,20 @@ def home(request):
 
 def sign_in(request):
     if request.method == 'POST':
+        form = SignInForm(request.POST)
+        if not form.is_valid():
+            return render(request, 'sign-in.html', {'form': form})
+
+        user = authenticate(
+            request,
+            username=form.cleaned_data['email'],
+            password=form.cleaned_data['password'])
+
+        if not user:
+            messages.error(request, 'E-mail ou senha incorreta.')
+            return render(request, 'sign-in.html', {'form': form})
+
+        login(request, user)
         return redirect('home')
 
     return render(request, 'sign-in.html', {'form': SignInForm()})
@@ -26,6 +42,7 @@ def sign_up(request):
 
 
 def sign_out(request):
+    logout(request)
     return redirect('home')
 
 
