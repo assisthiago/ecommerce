@@ -36,28 +36,26 @@
 							<div class="card">
 								<div class="card-body">
 									<div class="m-sm-4">
-										<form>
+										<form action="." method="post">
+											{% csrf_token %}
 											<div class="mb-3">
-												<label class="form-label">E-mail</label>
-												<input class="form-control form-control-lg" type="email" name="email"
-													placeholder="Entre com o seu e-mail" />
+												<label class="form-label">{{ form.email.label }}</label>
+												{{ form.email.errors }}
+												{{ form.email }}
 											</div>
 											<div class="mb-3">
-												<label class="form-label">Senha</label>
-												<input class="form-control form-control-lg" type="password"
-													name="password" placeholder="Entre com a sua senha" />
+												<label class="form-label">{{ form.password.label }}</label>
+												{{ form.password.errors }}
+												{{ form.password }}
 												<small>
 													<a href="{% url 'recover-password' %}">Esqueceu a senha?</a>
 												</small>
 											</div>
 											<div>
 												<div class="form-check align-items-center">
-													<input id="remember" type="checkbox"
-														class="form-check-input" value="remember-me" name="remember-me"
-														checked>
+													{{ form.remember_me }}
 													<label class="form-check-label text-small"
-														for="remember">Lembre-se de mim da próxima
-														vez</label>
+														for="remember">{{ form.remember_me.label }}</label>
 												</div>
 											</div>
 											<div class="text-center mt-3">

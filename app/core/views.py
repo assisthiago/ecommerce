@@ -1,7 +1,9 @@
 from django.shortcuts import redirect, render
 
 from app.categories.models import Category
+from app.core.forms import SignInForm
 from app.products.models import Product
+
 
 def home(request):
     context = {
@@ -13,7 +15,10 @@ def home(request):
 
 
 def sign_in(request):
-    return render(request, 'sign-in.html')
+    if request.method == 'POST':
+        return redirect('home')
+
+    return render(request, 'sign-in.html', {'form': SignInForm()})
 
 
 def sign_up(request):
