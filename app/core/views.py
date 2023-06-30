@@ -7,8 +7,8 @@ def home(request):
     context = {
         'categories': Category.objects.all(),
         'products': Product.objects.all(),
-        'user': str(request.user.profile),
     }
+
     return render(request, 'index.html', context=context)
 
 

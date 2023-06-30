@@ -31,7 +31,7 @@
     <div class="navbar-collapse collapse">
         <ul class="navbar-nav navbar-align">
 
-            {% if user %}
+            {% if user.is_authenticated %}
                 <li class="nav-item dropdown">
                     <a class="nav-link dropdown-toggle d-none d-sm-inline-block" href="#" data-bs-toggle="dropdown">
                         <i class="align-middle fas fa-fw fa-user-circle"></i>
