@@ -14,10 +14,10 @@ class SignUpFormTest(TestCase):
             'password',
             'first_name',
             'last_name',
-            'confirm_password']
+            'password_confirm']
 
         self.assertSequenceEqual(expected, list(self.form.fields))
 
-    def test_confirm_password_input(self):
-        widget = self.form.fields.get('confirm_password').widget
+    def test_password_confirm_input(self):
+        widget = self.form.fields.get('password_confirm').widget
         self.assertIsInstance(widget, PasswordInput)

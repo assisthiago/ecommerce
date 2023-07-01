@@ -16,6 +16,7 @@
 	<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500&display=swap" rel="stylesheet">
 
 	<link href="{% static 'css/light.css' %}" rel="stylesheet">
+	<link href="{% static 'css/custom.css' %}" rel="stylesheet">
 </head>
 
 <body data-theme="default" data-layout="fluid" data-sidebar-position="left" data-sidebar-behavior="sticky">
@@ -25,6 +26,17 @@
 				<div class="h-100">
 					<div class="col-sm-10 col-md-8 col-lg-6 mx-auto d-table h-100">
 						<div class="d-table-cell align-middle">
+							{% if messages %}
+								{% for message in messages %}
+									<div class="alert alert-{% if message.tags == 'error' %}danger{% else %}{{ message.tags }}{% endif %} alert-outline alert-dismissible" role="alert">
+										<button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+										<div class="alert-icon">
+											<i class="far fa-fw fa-bell"></i>
+										</div>
+										<div class="alert-message">{{ message }}</div>
+									</div>
+								{% endfor %}
+							{% endif %}
 
 							<div class="text-center mt-4">
 								<h1 class="h2">Bem-vindo!</h1>
@@ -42,15 +54,16 @@
 												<div class="mb-3 col-sm-12 col-md-6 col-lg-6">
 													<label class="form-label">{{ form.first_name.label }}</label>
 													{{ form.first_name }}
+
 													{% for error in form.first_name.errors %}
-														<label id="validation-email-error" class="error small form-text invalid-feedback">{{ error }}</label>
+														<label class="error small form-text invalid-feedback">{{ error }}</label>
 													{% endfor %}
 												</div>
 												<div class="mb-3 col-sm-12 col-md-6 col-lg-6">
 													<label class="form-label">{{ form.last_name.label }}</label>
 													{{ form.last_name }}
 													{% for error in form.last_name.errors %}
-														<label id="validation-email-error" class="error small form-text invalid-feedback">{{ error }}</label>
+														<label class="error small form-text invalid-feedback">{{ error }}</label>
 													{% endfor %}
 												</div>
 											</div>
@@ -59,33 +72,32 @@
 												{{ form.email }}
 
 												{% for error in form.email.errors %}
-													<label id="validation-email-error" class="error small form-text invalid-feedback">{{ error }}</label>
+													<label class="error small form-text invalid-feedback">{{ error }}</label>
 												{% endfor %}
 											</div>
 											<div class="mb-3">
 												<label class="form-label">{{ form.password.label }}</label>
 												{{ form.password }}
 
-												{% for text in form.confirm_password.help_text %}
+												{% for text in form.password.help_text %}
 													<small>{{ text }}</small><br>
 												{% endfor %}
 
 												{% for error in form.password.errors %}
-													<label id="validation-email-error" class="error small form-text invalid-feedback">{{ error }}</label>
+													<label class="error small form-text invalid-feedback">{{ error }}</label>
 												{% endfor %}
 											</div>
 											<div class="mb-3">
-												<label class="form-label">{{ form.confirm_password.label }}</label>
-												{{ form.confirm_password }}
+												<label class="form-label">{{ form.password_confirm.label }}</label>
+												{{ form.password_confirm }}
 
-												{% for error in form.confirm_password.errors %}
-													<label id="validation-email-error" class="error small form-text invalid-feedback">{{ error }}</label>
+												{% for error in form.password_confirm.errors %}
+													<label class="error small form-text invalid-feedback">{{ error }}</label>
 												{% endfor %}
 											</div>
 											<div class="text-center mt-3">
 												<button type="submit" class="btn btn-lg btn-primary">Cadastrar</button>
-												<input type=button class="btn btn-lg btn-link"
-													value="Voltar" onClick="javascript:history.go(-1);">
+												<a href="{% url 'sign-in' %}" class="btn btn-lg btn-link">Voltar</a>
 											</div>
 										</form>
 									</div>
@@ -98,6 +110,8 @@
 			</div>
 		</main>
 	</div>
+
+	<script src="{% static 'js/app.js' %}"></script>
 
 </body>
 

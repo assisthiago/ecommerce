@@ -1,5 +1,4 @@
 from django import forms
-from django.core import validators
 from django.contrib.auth.password_validation import validate_password
 
 
@@ -46,10 +45,21 @@ class SignInForm(BaseForm):
 class SignUpForm(BaseForm):
     first_name = forms.CharField(label='Nome')
     last_name = forms.CharField(label='Sobrenome')
-    confirm_password = forms.CharField(
+    password_confirm = forms.CharField(
         label='Confirmar senha',
-        widget=forms.PasswordInput,
-        validators=[validate_password])
+        widget=forms.PasswordInput)
+
+    def clean(self):
+        cleaned_data = super().clean()
+
+        password = cleaned_data.get('password')
+        password_confirm = cleaned_data.get('password_confirm')
+
+        if password and password_confirm:
+            if password != password_confirm:
+                self.add_error('password_confirm', 'As senhas são diferentes.')
+
+        return cleaned_data
 
     def __init__(self, *args, **kwargs):
         super().__init__(*args, **kwargs)
@@ -63,7 +73,7 @@ class SignUpForm(BaseForm):
                 self.fields[field].widget.attrs.update({
                     'placeholder': 'Entre com o sobrenome'})
 
-            if field == 'confirm_password':
+            if field == 'password_confirm':
                 self.fields[field].widget.attrs.update({
                     'placeholder': 'Confirme a sua senha'})
 

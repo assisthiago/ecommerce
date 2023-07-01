@@ -7,3 +7,7 @@
 .alert-message {
     padding: .95rem 2.85rem .95rem .95rem;
 }
+
+.invalid-feedback {
+    display: block;
+}

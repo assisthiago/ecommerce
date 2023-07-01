@@ -54,7 +54,7 @@
 												{{ form.email }}
 
 												{% for error in form.email.errors %}
-													<label id="validation-email-error" class="error small form-text invalid-feedback">{{ error }}</label>
+													<label class="error small form-text invalid-feedback">{{ error }}</label>
 												{% endfor %}
 
 											</div>
@@ -62,7 +62,7 @@
 												<label class="form-label">{{ form.password.label }}</label>
 												{{ form.password }}
 												{% for error in form.password.errors %}
-													<label id="validation-email-error" class="error small form-text invalid-feedback">{{ error }}</label>
+													<label class="error small form-text invalid-feedback">{{ error }}</label>
 												{% endfor %}
 												<small>
 													<a href="{% url 'recover-password' %}">Esqueceu a senha?</a>
