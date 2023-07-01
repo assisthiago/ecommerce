@@ -3,7 +3,7 @@ from django.contrib.auth import authenticate, login, logout
 from django.shortcuts import redirect, render
 
 from app.categories.models import Category
-from app.core.forms import SignInForm
+from app.core.forms import SignInForm, SignUpForm
 from app.products.models import Product
 
 
@@ -38,7 +38,7 @@ def sign_in(request):
 
 
 def sign_up(request):
-    return render(request, 'sign-up.html')
+    return render(request, 'sign-up.html', {'form': SignUpForm()})
 
 
 def sign_out(request):

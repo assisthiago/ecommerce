@@ -36,45 +36,51 @@
 							<div class="card">
 								<div class="card-body">
 									<div class="m-sm-4">
-										<form>
+										<form action="{% url 'sign-up' %}" method="post">
+											{% csrf_token %}
 											<div class="row">
 												<div class="mb-3 col-sm-12 col-md-6 col-lg-6">
-													<label class="form-label">Nome</label>
-													<input class="form-control form-control-lg" type="text" name="first_name"
-														placeholder="Entre com o seu nome" required/>
+													<label class="form-label">{{ form.first_name.label }}</label>
+													{{ form.first_name }}
+													{% for error in form.first_name.errors %}
+														<label id="validation-email-error" class="error small form-text invalid-feedback">{{ error }}</label>
+													{% endfor %}
 												</div>
 												<div class="mb-3 col-sm-12 col-md-6 col-lg-6">
-													<label class="form-label">Sobrenome</label>
-													<input class="form-control form-control-lg" type="text" name="last_name"
-													placeholder="Entre com o sobrenome" required/>
+													<label class="form-label">{{ form.last_name.label }}</label>
+													{{ form.last_name }}
+													{% for error in form.last_name.errors %}
+														<label id="validation-email-error" class="error small form-text invalid-feedback">{{ error }}</label>
+													{% endfor %}
 												</div>
 											</div>
 											<div class="mb-3">
-												<label class="form-label">E-mail</label>
-												<input class="form-control form-control-lg" type="email" name="email"
-													placeholder="Entre com o seu e-mail" required/>
+												<label class="form-label">{{ form.email.label }}</label>
+												{{ form.email }}
+
+												{% for error in form.email.errors %}
+													<label id="validation-email-error" class="error small form-text invalid-feedback">{{ error }}</label>
+												{% endfor %}
 											</div>
 											<div class="mb-3">
-												<label class="form-label">Senha</label>
-												<input class="form-control form-control-lg" type="password"
-													name="password" placeholder="Entre com a sua senha" required/>
-												<small>
-													Sua senha não pode ser muito parecida com o resto das suas informações pessoais.
-												</small><br>
-												<small>
-													Sua senha precisa conter pelo menos 8 caracteres.
-												</small><br>
-												<small>
-													Sua senha não pode ser uma senha comumente utilizada.
-												</small><br>
-												<small>
-													Sua senha não pode ser inteiramente numérica.
-												</small>
+												<label class="form-label">{{ form.password.label }}</label>
+												{{ form.password }}
+
+												{% for text in form.confirm_password.help_text %}
+													<small>{{ text }}</small><br>
+												{% endfor %}
+
+												{% for error in form.password.errors %}
+													<label id="validation-email-error" class="error small form-text invalid-feedback">{{ error }}</label>
+												{% endfor %}
 											</div>
 											<div class="mb-3">
-												<label class="form-label">Confirmar senha</label>
-												<input class="form-control form-control-lg" type="password"
-													name="password" placeholder="Confirme sua senha" required/>
+												<label class="form-label">{{ form.confirm_password.label }}</label>
+												{{ form.confirm_password }}
+
+												{% for error in form.confirm_password.errors %}
+													<label id="validation-email-error" class="error small form-text invalid-feedback">{{ error }}</label>
+												{% endfor %}
 											</div>
 											<div class="text-center mt-3">
 												<button type="submit" class="btn btn-lg btn-primary">Cadastrar</button>
