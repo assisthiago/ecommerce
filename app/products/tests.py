@@ -2,6 +2,7 @@ from django.core.files.uploadedfile import SimpleUploadedFile
 from django.test import TestCase
 
 from app.categories.models import Category
+from app.products.admin import admin, ProductAdmin
 from app.products.models import Photo, Product
 
 
@@ -53,3 +54,32 @@ class PhotoModelTest(TestCase):
 
     def test_str(self):
         self.assertIn('image_', str(self.photo))
+
+
+class ProductAdminTest(TestCase):
+    fixtures = [
+        'app/core/fixtures/categories.json',
+        'app/core/fixtures/discounts.json',
+        'app/core/fixtures/inventories.json',
+        'app/core/fixtures/products.json']
+
+    def setUp(self):
+        self.model_admin = ProductAdmin(Product, admin.site)
+
+    def test_get_id(self):
+        expected = self.model_admin.get_id(
+            self.model_admin.model.objects.first())
+
+        self.assertEqual(expected, '48447B0D')
+
+    def test_get_discounts(self):
+        expected = self.model_admin.get_discounts(
+            self.model_admin.model.objects.first())
+
+        self.assertEqual(expected, '20 OFF')
+
+    def test_get_inventories(self):
+        expected = self.model_admin.get_inventories(
+            self.model_admin.model.objects.first())
+
+        self.assertTrue(expected)

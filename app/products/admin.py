@@ -43,7 +43,7 @@ class ProductAdmin(admin.ModelAdmin):
     # Display list fields
     @admin.display(description='id')
     def get_id(self, obj):
-        return obj
+        return str(obj)
 
     @admin.display(description='descontos ativos', empty_value='Nenhum')
     def get_discounts(self, obj):
