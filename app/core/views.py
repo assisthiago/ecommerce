@@ -45,6 +45,7 @@ def _login(request, form):
     login(request, user)
     return user
 
+
 def sign_up(request):
     if request.method == 'POST':
         form = SignUpForm(request.POST)
@@ -52,12 +53,7 @@ def sign_up(request):
             return render(request, 'sign-up.html', {'form': form})
 
         try:
-            User.objects.create_user(
-                first_name=form.cleaned_data['first_name'],
-                last_name=form.cleaned_data['last_name'],
-                username=form.cleaned_data['email'],
-                email=form.cleaned_data['email'],
-                password=form.cleaned_data['password'])
+            Profile.create_user(form)
 
         except:
             messages.error(request, 'Conta já cadastrada.')
