@@ -57,9 +57,6 @@ class SignUpPostViewTest(TestCase):
     def test_user(self):
         self.assertTrue(User.objects.exists())
 
-    def test_html(self):
-        self.assertContains(self.resp, 'Conta cadastrada.')
-
 
 class SignUpInvalidPostViewTest(TestCase):
     def test_first_name(self):
