@@ -2,6 +2,7 @@ import uuid
 
 from django.contrib.auth.models import User
 from django.db import models
+from django.shortcuts import get_object_or_404
 
 
 class Profile(models.Model):
@@ -32,8 +33,14 @@ class Profile(models.Model):
             email=form.cleaned_data['email'],
             password=form.cleaned_data['password'])
 
+    @staticmethod
+    def set_password(form):
+        user = get_object_or_404(User, email=form.cleaned_data['email'])
+        user.set_password(form.cleaned_data['password'])
+        user.save()
+
     def __str__(self):
-        return f'{self.user.first_name} {self.user.last_name}'.title()
+        return self.user.get_full_name().title()
 
     class Meta:
         db_table = 'profile'

@@ -1,10 +1,11 @@
 from django.contrib import messages
 from django.contrib.auth import authenticate, login, logout
-from django.contrib.auth.models import User
+from django.db.utils import IntegrityError
+from django.http import Http404
 from django.shortcuts import redirect, render
 
 from app.categories.models import Category
-from app.core.forms import SignInForm, SignUpForm
+from app.core.forms import RecoverPasswordForm, SignInForm, SignUpForm
 from app.products.models import Product
 from app.profiles.models import Profile
 
@@ -55,7 +56,7 @@ def sign_up(request):
         try:
             Profile.create_user(form)
 
-        except:
+        except IntegrityError:
             messages.error(request, 'Conta já cadastrada.')
             return render(request, 'sign-up.html', {'form': form})
 
@@ -71,4 +72,21 @@ def sign_out(request):
 
 
 def recover_password(request):
-    return render(request, 'recover-password.html')
+    if request.method == 'POST':
+        form = RecoverPasswordForm(request.POST)
+
+        if not form.is_valid():
+            return render(request, 'recover-password.html', {'form': form})
+
+        try:
+            Profile.set_password(form)
+
+        except Http404:
+            messages.error(request, 'Conta não encontrada.')
+            return render(request, 'recover-password.html', {'form': form})
+
+        messages.success(request, 'Senha recuperada.')
+        return redirect('sign-in')
+
+    return render(
+        request, 'recover-password.html', {'form': RecoverPasswordForm()})

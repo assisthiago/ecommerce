@@ -79,3 +79,17 @@ class SignUpForm(BaseForm):
 
             self.fields[field].widget.attrs.update(
                 {'class': 'form-control form-control-lg'})
+
+
+class RecoverPasswordForm(SignUpForm):
+    def __init__(self, *args, **kwargs):
+        super().__init__(*args, **kwargs)
+
+        for field in self.fields:
+            if field == 'password':
+                self.fields[field].widget.attrs.update({
+                    'placeholder': 'Entre com a sua nova senha'})
+
+            if field == 'password_confirm':
+                self.fields[field].widget.attrs.update({
+                    'placeholder': 'Confirme a sua nova senha'})
