@@ -4,6 +4,7 @@ from django.contrib.auth.models import User
 from django.core.exceptions import ValidationError
 from django.test import TestCase
 
+from app.profiles.admin import admin, ProfileAdmin
 from app.profiles.models import Profile
 
 
@@ -53,3 +54,24 @@ class ProfileModelTest(TestCase):
             user=user)
 
         self.assertRaises(ValidationError, profile.full_clean)
+
+
+class ProfileAdminTest(TestCase):
+    fixtures = [
+        'app/core/fixtures/auth.json',
+        'app/core/fixtures/profiles.json']
+
+    def setUp(self):
+        self.model_admin = ProfileAdmin(Profile, admin.site)
+
+    def test_get_name(self):
+        expected = self.model_admin.get_name(
+            self.model_admin.model.objects.first())
+
+        self.assertEqual(expected, 'Thiago Medeiros Assis')
+
+    def test_get_email(self):
+        expected = self.model_admin.get_email(
+            self.model_admin.model.objects.first())
+
+        self.assertEqual(expected, 'thiago.medassis@gmail.com')
