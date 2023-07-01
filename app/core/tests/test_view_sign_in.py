@@ -49,8 +49,8 @@ class SignInPostViewTest(TestCase):
             password='zbbc9fi0h!')
 
         self.resp = self.client.post(r('sign-in'), {
-            'username': self.user.username,
-            'password': self.user.password,
+            'email': self.user.username,
+            'password': 'zbbc9fi0h!',
             'remember_me': True})
 
     def test_post(self):
@@ -74,3 +74,7 @@ class SignInInvalidPostTest(TestCase):
         self.assertContains(
             self.resp,
             '<div class="alert-message">E-mail ou senha incorreta.</div>')
+
+    def test_form_invalid(self):
+        resp = self.client.post(r('sign-in'), {})
+        self.assertContains(resp, 'Este campo é obrigatório.', 2)

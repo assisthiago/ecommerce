@@ -4,7 +4,8 @@ from django import forms
 class SignInForm(forms.Form):
     email = forms.EmailField(label='E-mail')
     password = forms.CharField(label='Senha', widget=forms.PasswordInput)
-    remember_me = forms.BooleanField(label='Lembre-se de mim da próxima vez')
+    remember_me = forms.BooleanField(
+        label='Lembre-se de mim da próxima vez', required=False)
 
     def __init__(self, *args, **kwargs):
         super().__init__(*args, **kwargs)
