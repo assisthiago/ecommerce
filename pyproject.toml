@@ -1,0 +1,19 @@
+# formats all code using Black and isort packages
+[tool.black]
+exclude = '''
+/(
+    \.git
+  | \.mypy_cache
+  | \.tox
+  | venv
+  | \.venv
+  | _build
+  | buck-out
+  | build
+  | dist
+)/
+'''
+
+[tool.isort]
+# make it compatible with black
+profile = "black"

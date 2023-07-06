@@ -124,6 +124,8 @@ class RecoverPasswordInvalidPostViewTest(TestCase):
             r("recover-password"), self._make_data(first_name="test")
         )
 
+        self.assertContains(resp, "Conta não encontrada.")
+
     def _make_data(self, **kwargs):
         data = dict(
             first_name="user",
