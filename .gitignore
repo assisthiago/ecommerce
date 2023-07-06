@@ -160,5 +160,5 @@ cython_debug/
 #.idea/
 
 # Media
-products/
-profiles/
+/products
+/profiles
