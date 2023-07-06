@@ -1,5 +1,5 @@
-from django.test import TestCase
 from django.shortcuts import resolve_url as r
+from django.test import TestCase
 
 
 class HomeViewTest(TestCase):
@@ -51,4 +51,7 @@ class HomeViewTest(TestCase):
                 self.assertContains(self.resp, expected)
 
     def test_product_link(self):
-        self.assertContains(self.resp, '<a href="#" class="card-link">Ver detalhes</a>')
+        self.assertContains(
+            self.resp,
+            '<a href="/products/48447b0d-2bc4-47b4-bed3-dae8f9556787" class="card-link">Ver detalhes</a>',
+        )
