@@ -5,26 +5,46 @@ import uuid
 
 
 class Migration(migrations.Migration):
-
     initial = True
 
-    dependencies = [
-    ]
+    dependencies = []
 
     operations = [
         migrations.CreateModel(
-            name='Category',
+            name="Category",
             fields=[
-                ('id', models.UUIDField(default=uuid.uuid4, editable=False, primary_key=True, serialize=False)),
-                ('name', models.CharField(max_length=100, unique=True, verbose_name='nome')),
-                ('description', models.CharField(blank=True, max_length=256, null=True, verbose_name='descrição')),
-                ('created_at', models.DateTimeField(auto_now_add=True, verbose_name='criado em')),
-                ('updated_at', models.DateTimeField(auto_now=True, verbose_name='atualizado em')),
+                (
+                    "id",
+                    models.UUIDField(
+                        default=uuid.uuid4,
+                        editable=False,
+                        primary_key=True,
+                        serialize=False,
+                    ),
+                ),
+                (
+                    "name",
+                    models.CharField(max_length=100, unique=True, verbose_name="nome"),
+                ),
+                (
+                    "description",
+                    models.CharField(
+                        blank=True, max_length=256, null=True, verbose_name="descrição"
+                    ),
+                ),
+                (
+                    "created_at",
+                    models.DateTimeField(auto_now_add=True, verbose_name="criado em"),
+                ),
+                (
+                    "updated_at",
+                    models.DateTimeField(auto_now=True, verbose_name="atualizado em"),
+                ),
             ],
             options={
-                'verbose_name': 'categoria',
-                'verbose_name_plural': 'categorias',
-                'db_table': 'category',
+                "verbose_name": "categoria",
+                "verbose_name_plural": "categorias",
+                "db_table": "category",
             },
         ),
     ]

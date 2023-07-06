@@ -12,33 +12,34 @@ from app.profiles.models import Profile
 
 def home(request):
     context = {
-        'categories': Category.objects.all(),
-        'products': Product.objects.all(),
+        "categories": Category.objects.all(),
+        "products": Product.objects.all(),
     }
 
-    return render(request, 'index.html', context=context)
+    return render(request, "index.html", context=context)
 
 
 def sign_in(request):
-    if request.method == 'POST':
+    if request.method == "POST":
         form = SignInForm(request.POST)
         if not form.is_valid():
-            return render(request, 'sign-in.html', {'form': form})
+            return render(request, "sign-in.html", {"form": form})
 
         if not _login(request, form):
-            messages.error(request, 'E-mail ou senha incorreta.')
-            return render(request, 'sign-in.html', {'form': form})
+            messages.error(request, "E-mail ou senha incorreta.")
+            return render(request, "sign-in.html", {"form": form})
 
-        return redirect('home')
+        return redirect("home")
 
-    return render(request, 'sign-in.html', {'form': SignInForm()})
+    return render(request, "sign-in.html", {"form": SignInForm()})
 
 
 def _login(request, form):
     user = authenticate(
         request,
-        username=form.cleaned_data['email'],
-        password=form.cleaned_data['password'])
+        username=form.cleaned_data["email"],
+        password=form.cleaned_data["password"],
+    )
 
     if not user:
         return
@@ -48,45 +49,44 @@ def _login(request, form):
 
 
 def sign_up(request):
-    if request.method == 'POST':
+    if request.method == "POST":
         form = SignUpForm(request.POST)
         if not form.is_valid():
-            return render(request, 'sign-up.html', {'form': form})
+            return render(request, "sign-up.html", {"form": form})
 
         try:
             Profile.create_user(form)
 
         except IntegrityError:
-            messages.error(request, 'Conta já cadastrada.')
-            return render(request, 'sign-up.html', {'form': form})
+            messages.error(request, "Conta já cadastrada.")
+            return render(request, "sign-up.html", {"form": form})
 
-        messages.success(request, 'Conta cadastrada.')
-        return redirect('sign-in')
+        messages.success(request, "Conta cadastrada.")
+        return redirect("sign-in")
 
-    return render(request, 'sign-up.html', {'form': SignUpForm()})
+    return render(request, "sign-up.html", {"form": SignUpForm()})
 
 
 def sign_out(request):
     logout(request)
-    return redirect('home')
+    return redirect("home")
 
 
 def recover_password(request):
-    if request.method == 'POST':
+    if request.method == "POST":
         form = RecoverPasswordForm(request.POST)
 
         if not form.is_valid():
-            return render(request, 'recover-password.html', {'form': form})
+            return render(request, "recover-password.html", {"form": form})
 
         try:
             Profile.set_password(form)
 
         except Http404:
-            messages.error(request, 'Conta não encontrada.')
-            return render(request, 'recover-password.html', {'form': form})
+            messages.error(request, "Conta não encontrada.")
+            return render(request, "recover-password.html", {"form": form})
 
-        messages.success(request, 'Senha recuperada.')
-        return redirect('sign-in')
+        messages.success(request, "Senha recuperada.")
+        return redirect("sign-in")
 
-    return render(
-        request, 'recover-password.html', {'form': RecoverPasswordForm()})
+    return render(request, "recover-password.html", {"form": RecoverPasswordForm()})

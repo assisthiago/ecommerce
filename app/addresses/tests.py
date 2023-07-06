@@ -10,28 +10,28 @@ from app.profiles.models import Profile
 class AddressModelTest(TestCase):
     def setUp(self):
         user = User.objects.create(
-            username='user@test.com',
-            password='zbbc9fi0h!',
-            email='user@test.com',
-            first_name='user',
-            last_name='test')
+            username="user@test.com",
+            password="zbbc9fi0h!",
+            email="user@test.com",
+            first_name="user",
+            last_name="test",
+        )
 
         self.profile = Profile.objects.create(
-            birthday=date(1994, 5, 30),
-            gender='m',
-            phone=9999999999,
-            user=user)
+            birthday=date(1994, 5, 30), gender="m", phone=9999999999, user=user
+        )
 
         self.address = Address.objects.create(
             zip_code=12345678,
-            street='Rua',
+            street="Rua",
             number=1,
-            neighborhood='Bairro',
-            city='Cidade',
-            state='Estado',
-            country='País',
+            neighborhood="Bairro",
+            city="Cidade",
+            state="Estado",
+            country="País",
             phone=99999999999,
-            profile=self.profile)
+            profile=self.profile,
+        )
 
     def test_create(self):
         self.assertTrue(Address.objects.exists())
@@ -44,11 +44,11 @@ class AddressModelTest(TestCase):
 
     def test_str(self):
         self.assertEqual(
-            'Rua 1, Bairro - Cidade - Estado - País, 12345678',
-            str(self.address))
+            "Rua 1, Bairro - Cidade - Estado - País, 12345678", str(self.address)
+        )
 
     def test_fields_blank(self):
-        fields = ['complement', 'reference']
+        fields = ["complement", "reference"]
 
         for field_name in fields:
             with self.subTest():
@@ -58,17 +58,19 @@ class AddressModelTest(TestCase):
     def test_full_address(self):
         self.address = Address.objects.create(
             zip_code=12345678,
-            street='Rua',
+            street="Rua",
             number=1,
-            complement='Complemento',
-            reference='Referência',
-            neighborhood='Bairro',
-            city='Cidade',
-            state='Estado',
-            country='País',
+            complement="Complemento",
+            reference="Referência",
+            neighborhood="Bairro",
+            city="Cidade",
+            state="Estado",
+            country="País",
             phone=99999999999,
-            profile=self.profile)
+            profile=self.profile,
+        )
 
         self.assertEqual(
-            'Rua 1, Bairro - Complemento - Referência - Cidade - Estado - País, 12345678',
-            str(self.address))
+            "Rua 1, Bairro - Complemento - Referência - Cidade - Estado - País, 12345678",
+            str(self.address),
+        )

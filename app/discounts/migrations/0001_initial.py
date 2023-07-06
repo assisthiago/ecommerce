@@ -6,30 +6,64 @@ import uuid
 
 
 class Migration(migrations.Migration):
-
     initial = True
 
     dependencies = [
-        ('products', '0001_initial'),
+        ("products", "0001_initial"),
     ]
 
     operations = [
         migrations.CreateModel(
-            name='Discount',
+            name="Discount",
             fields=[
-                ('id', models.UUIDField(default=uuid.uuid4, editable=False, primary_key=True, serialize=False)),
-                ('name', models.CharField(max_length=100, verbose_name='nome')),
-                ('description', models.CharField(blank=True, max_length=256, null=True, verbose_name='descrição')),
-                ('percent', models.DecimalField(decimal_places=2, max_digits=2, verbose_name='porcentagem')),
-                ('available', models.BooleanField(default=False, verbose_name='disponível')),
-                ('created_at', models.DateTimeField(auto_now_add=True, verbose_name='criado em')),
-                ('updated_at', models.DateTimeField(auto_now=True, verbose_name='atualizado em')),
-                ('product', models.ForeignKey(on_delete=django.db.models.deletion.CASCADE, related_name='discounts', to='products.product', verbose_name='produto')),
+                (
+                    "id",
+                    models.UUIDField(
+                        default=uuid.uuid4,
+                        editable=False,
+                        primary_key=True,
+                        serialize=False,
+                    ),
+                ),
+                ("name", models.CharField(max_length=100, verbose_name="nome")),
+                (
+                    "description",
+                    models.CharField(
+                        blank=True, max_length=256, null=True, verbose_name="descrição"
+                    ),
+                ),
+                (
+                    "percent",
+                    models.DecimalField(
+                        decimal_places=2, max_digits=2, verbose_name="porcentagem"
+                    ),
+                ),
+                (
+                    "available",
+                    models.BooleanField(default=False, verbose_name="disponível"),
+                ),
+                (
+                    "created_at",
+                    models.DateTimeField(auto_now_add=True, verbose_name="criado em"),
+                ),
+                (
+                    "updated_at",
+                    models.DateTimeField(auto_now=True, verbose_name="atualizado em"),
+                ),
+                (
+                    "product",
+                    models.ForeignKey(
+                        on_delete=django.db.models.deletion.CASCADE,
+                        related_name="discounts",
+                        to="products.product",
+                        verbose_name="produto",
+                    ),
+                ),
             ],
             options={
-                'verbose_name': 'desconto',
-                'verbose_name_plural': 'descontos',
-                'db_table': 'discount',
+                "verbose_name": "desconto",
+                "verbose_name_plural": "descontos",
+                "db_table": "discount",
             },
         ),
     ]

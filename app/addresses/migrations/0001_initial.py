@@ -6,37 +6,78 @@ import uuid
 
 
 class Migration(migrations.Migration):
-
     initial = True
 
     dependencies = [
-        ('profiles', '0001_initial'),
+        ("profiles", "0001_initial"),
     ]
 
     operations = [
         migrations.CreateModel(
-            name='Address',
+            name="Address",
             fields=[
-                ('id', models.UUIDField(default=uuid.uuid4, editable=False, primary_key=True, serialize=False)),
-                ('zip_code', models.IntegerField(verbose_name='cep')),
-                ('street', models.CharField(max_length=100, verbose_name='Rua/Avenida/Estrada...')),
-                ('number', models.IntegerField(verbose_name='número')),
-                ('complement', models.CharField(blank=True, max_length=100, null=True, verbose_name='complemento')),
-                ('reference', models.CharField(blank=True, max_length=100, null=True, verbose_name='referência')),
-                ('neighborhood', models.CharField(max_length=100, verbose_name='bairro')),
-                ('city', models.CharField(max_length=100, verbose_name='cidade')),
-                ('state', models.CharField(max_length=100, verbose_name='estado')),
-                ('country', models.CharField(max_length=100, verbose_name='país')),
-                ('phone', models.IntegerField(verbose_name='telefone')),
-                ('created_at', models.DateTimeField(auto_now_add=True, verbose_name='criado em')),
-                ('updated_at', models.DateTimeField(auto_now=True, verbose_name='atualizado em')),
-                ('profile', models.ForeignKey(on_delete=django.db.models.deletion.CASCADE, related_name='address', to='profiles.profile')),
+                (
+                    "id",
+                    models.UUIDField(
+                        default=uuid.uuid4,
+                        editable=False,
+                        primary_key=True,
+                        serialize=False,
+                    ),
+                ),
+                ("zip_code", models.IntegerField(verbose_name="cep")),
+                (
+                    "street",
+                    models.CharField(
+                        max_length=100, verbose_name="Rua/Avenida/Estrada..."
+                    ),
+                ),
+                ("number", models.IntegerField(verbose_name="número")),
+                (
+                    "complement",
+                    models.CharField(
+                        blank=True,
+                        max_length=100,
+                        null=True,
+                        verbose_name="complemento",
+                    ),
+                ),
+                (
+                    "reference",
+                    models.CharField(
+                        blank=True, max_length=100, null=True, verbose_name="referência"
+                    ),
+                ),
+                (
+                    "neighborhood",
+                    models.CharField(max_length=100, verbose_name="bairro"),
+                ),
+                ("city", models.CharField(max_length=100, verbose_name="cidade")),
+                ("state", models.CharField(max_length=100, verbose_name="estado")),
+                ("country", models.CharField(max_length=100, verbose_name="país")),
+                ("phone", models.IntegerField(verbose_name="telefone")),
+                (
+                    "created_at",
+                    models.DateTimeField(auto_now_add=True, verbose_name="criado em"),
+                ),
+                (
+                    "updated_at",
+                    models.DateTimeField(auto_now=True, verbose_name="atualizado em"),
+                ),
+                (
+                    "profile",
+                    models.ForeignKey(
+                        on_delete=django.db.models.deletion.CASCADE,
+                        related_name="address",
+                        to="profiles.profile",
+                    ),
+                ),
             ],
             options={
-                'verbose_name': 'endereço',
-                'verbose_name_plural': 'endereços',
-                'db_table': 'address',
-                'unique_together': {('zip_code', 'street', 'number', 'complement')},
+                "verbose_name": "endereço",
+                "verbose_name_plural": "endereços",
+                "db_table": "address",
+                "unique_together": {("zip_code", "street", "number", "complement")},
             },
         ),
     ]

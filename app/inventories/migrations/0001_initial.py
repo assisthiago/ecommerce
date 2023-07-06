@@ -6,30 +6,51 @@ import uuid
 
 
 class Migration(migrations.Migration):
-
     initial = True
 
     dependencies = [
-        ('products', '0001_initial'),
+        ("products", "0001_initial"),
     ]
 
     operations = [
         migrations.CreateModel(
-            name='Inventory',
+            name="Inventory",
             fields=[
-                ('id', models.UUIDField(default=uuid.uuid4, editable=False, primary_key=True, serialize=False)),
-                ('color', models.CharField(max_length=100, verbose_name='cor')),
-                ('size', models.CharField(max_length=6, verbose_name='tamanho')),
-                ('quantity', models.IntegerField(verbose_name='quantidade')),
-                ('created_at', models.DateTimeField(auto_now_add=True, verbose_name='criado em')),
-                ('updated_at', models.DateTimeField(auto_now=True, verbose_name='atualizado em')),
-                ('product', models.ForeignKey(on_delete=django.db.models.deletion.CASCADE, related_name='inventories', to='products.product', verbose_name='produto')),
+                (
+                    "id",
+                    models.UUIDField(
+                        default=uuid.uuid4,
+                        editable=False,
+                        primary_key=True,
+                        serialize=False,
+                    ),
+                ),
+                ("color", models.CharField(max_length=100, verbose_name="cor")),
+                ("size", models.CharField(max_length=6, verbose_name="tamanho")),
+                ("quantity", models.IntegerField(verbose_name="quantidade")),
+                (
+                    "created_at",
+                    models.DateTimeField(auto_now_add=True, verbose_name="criado em"),
+                ),
+                (
+                    "updated_at",
+                    models.DateTimeField(auto_now=True, verbose_name="atualizado em"),
+                ),
+                (
+                    "product",
+                    models.ForeignKey(
+                        on_delete=django.db.models.deletion.CASCADE,
+                        related_name="inventories",
+                        to="products.product",
+                        verbose_name="produto",
+                    ),
+                ),
             ],
             options={
-                'verbose_name': 'inventário',
-                'verbose_name_plural': 'inventários',
-                'db_table': 'inventory',
-                'unique_together': {('color', 'size', 'product')},
+                "verbose_name": "inventário",
+                "verbose_name_plural": "inventários",
+                "db_table": "inventory",
+                "unique_together": {("color", "size", "product")},
             },
         ),
     ]

@@ -8,11 +8,6 @@ class RecoverPasswordFormTest(TestCase):
         self.form = RecoverPasswordForm()
 
     def test_form_has_fields(self):
-        expected = [
-            'email',
-            'password',
-            'first_name',
-            'last_name',
-            'password_confirm']
+        expected = ["email", "password", "first_name", "last_name", "password_confirm"]
 
         self.assertSequenceEqual(expected, list(self.form.fields))

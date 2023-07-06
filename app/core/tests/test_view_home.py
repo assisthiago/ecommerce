@@ -4,28 +4,29 @@ from django.shortcuts import resolve_url as r
 
 class HomeViewTest(TestCase):
     fixtures = [
-        'categories.json',
-        'products.json',
-        'discounts.json',
-        'inventories.json']
+        "categories.json",
+        "products.json",
+        "discounts.json",
+        "inventories.json",
+    ]
 
     def setUp(self):
-        self.resp = self.client.get(r('home'))
+        self.resp = self.client.get(r("home"))
 
     def test_get(self):
         """GET / must return status code 200"""
         self.assertEqual(200, self.resp.status_code)
 
     def test_template(self):
-        """"Must use home.html"""
-        self.assertTemplateUsed(self.resp, 'index.html')
+        """ "Must use home.html"""
+        self.assertTemplateUsed(self.resp, "index.html")
 
     def test_sign_in_link(self):
         expected = f'href="{r("sign-in")}"'
         self.assertContains(self.resp, expected)
 
     def test_categories(self):
-        contents = ['Camiseta', 'Moletom']
+        contents = ["Camiseta", "Moletom"]
         for content in contents:
             with self.subTest():
                 expected = f'<a class="dropdown-item" href="#">{content}</a>'
@@ -37,7 +38,7 @@ class HomeViewTest(TestCase):
             '<h5 class="card-title mb-0">A Morte da Morte na Morte de Cristo</h5>',
             '<span class="badge bg-primary">20 OFF</span>',
             '<div class="badge bg-success my-2">Disponível</div>',
-            '<strong>Preta</strong>',
+            "<strong>Preta</strong>",
             '<span class="badge bg-secondary">P</span>',
             '<span class="badge bg-secondary">M</span>',
             '<span class="badge bg-secondary">G</span>',
@@ -51,4 +52,3 @@ class HomeViewTest(TestCase):
 
     def test_product_link(self):
         self.assertContains(self.resp, '<a href="#" class="card-link">Ver detalhes</a>')
-
