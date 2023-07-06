@@ -45,6 +45,14 @@ def _login(request, form):
         return
 
     login(request, user)
+    if not form.cleaned_data["remember_me"]:
+        # Expiry is set to 0 seconds.
+        # So it will automatically close the session after the browser is closed.
+        request.session.set_expiry(0)
+
+    else:
+        request.session["remember_me"] = True
+
     return user
 
 

@@ -45,24 +45,33 @@ class SignInGetViewTest(TestCase):
 
 class SignInPostViewTest(TestCase):
     def setUp(self):
-        self.user = User.objects.create_user(
-            username="user@test.com", password="zbbc9fi0h!"
-        )
-
-        self.resp = self.client.post(
-            r("sign-in"),
-            {
-                "email": self.user.username,
-                "password": "zbbc9fi0h!",
-                "remember_me": True,
-            },
-        )
+        User.objects.create_user(username="user@test.com", password="zbbc9fi0h!")
 
     def test_post(self):
-        self.assertEqual(302, self.resp.status_code)
+        resp = self.client.post(r("sign-in"), self._make_data())
+        self.assertEqual(302, resp.status_code)
 
     def test_user_logged_in(self):
-        self.assertTrue(self.user.is_authenticated)
+        self.client.post(r("sign-in"), self._make_data())
+        user = User.objects.first()
+        self.assertTrue(user.is_authenticated)
+
+    def test_remember_me(self):
+        self.client.post(r("sign-in"), self._make_data())
+        self.assertFalse(self.client.session.get_expire_at_browser_close())
+
+    def test_not_remember_me(self):
+        self.client.post(r("sign-in"), self._make_data(remember_me=False))
+        self.assertTrue(self.client.session.get_expire_at_browser_close())
+
+    def _make_data(self, **kwargs):
+        data = dict(
+            email="user@test.com",
+            password="zbbc9fi0h!",
+            remember_me=True,
+        )
+
+        return dict(data, **kwargs)
 
 
 class SignInInvalidPostTest(TestCase):

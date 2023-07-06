@@ -1,6 +1,6 @@
 from pathlib import Path
 
-from decouple import config, Csv
+from decouple import Csv, config
 from dj_database_url import parse as dburl
 
 from contrib.secret_key import generate
