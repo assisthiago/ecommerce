@@ -66,7 +66,7 @@
                             <div class="mb-4">
                                 {% regroup product.inventories.all by color as color_list %}
                                 {% for color in color_list %}
-                                    <p class="card-text mb-{% if forloop.last %}3{% else %}0{% endif %}">
+                                    <p class="card-text {% if forloop.first %}mb-1{% endif %}">
                                         <strong>{{ color.grouper }}</strong>
                                         <br>
                                         {% for item in color.list %}
@@ -76,7 +76,6 @@
                                                 <span class="form-check-label">{{ item.size|upper }}</span>
                                             </label>
                                         {% endfor %}
-
                                     </p>
                                 {% endfor %}
                             </div>
