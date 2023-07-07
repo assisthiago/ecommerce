@@ -4,6 +4,7 @@ from django.contrib import admin
 from django.urls import path
 
 import app.core.views
+import app.products.views
 
 urlpatterns = [
     path("", app.core.views.home, name="home"),
@@ -11,5 +12,6 @@ urlpatterns = [
     path("sign-up", app.core.views.sign_up, name="sign-up"),
     path("sign-out", app.core.views.sign_out, name="sign-out"),
     path("recover-password", app.core.views.recover_password, name="recover-password"),
+    path("products/<uuid:id>", app.products.views.detail, name="product-detail"),
     path("admin/", admin.site.urls),
 ] + static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)

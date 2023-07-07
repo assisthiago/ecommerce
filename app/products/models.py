@@ -8,7 +8,7 @@ from app.categories.models import Category
 class Product(models.Model):
     id = models.UUIDField(primary_key=True, default=uuid.uuid4, editable=False)
     name = models.CharField("nome", max_length=100, unique=True)
-    description = models.CharField("descrição", max_length=256, null=True, blank=True)
+    description = models.TextField("descrição", max_length=256, null=True, blank=True)
     price = models.DecimalField("preço", max_digits=6, decimal_places=2)
     available = models.BooleanField("disponível", default=False)
     created_at = models.DateTimeField("criado em", auto_now_add=True)

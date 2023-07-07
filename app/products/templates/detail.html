@@ -1,0 +1,95 @@
+{% extends 'base.html' %}
+
+{% load static %}
+{% block content %}
+<div class="container-fluid p-0">
+    <div class="row">
+        <div class="mx-auto col-12 col-lg-10">
+            <div class="row">
+                <div class="d-none d-xl-block col-md-2 col-xl-1">
+                    {% for photo in product.photos.all %}
+                        <div class="card">
+                            <img class="d-block w-100" src="{{ photo.file.url }}" alt="{{ product.name }}">
+                        </div>
+                    {% endfor %}
+                </div>
+
+                <div class="col-12 col-md-6 col-lg-7 col-xl-6">
+                    <div class="card">
+                        <div id="carouselIndicators{{ product }}" class="carousel slide" data-bs-ride="carousel">
+                            <ol class="carousel-indicators">
+                                {% for photo in product.photos.all %}
+                                    <li data-bs-target="#carouselIndicators{{ product }}" data-bs-slide-to="{{ forloop.counter0 }}"
+                                        {% if photo.default %}
+                                            class="active" aria-current="true"
+                                        {% endif %}
+                                    ></li>
+                                {% endfor %}
+                            </ol>
+                            <div class="carousel-inner">
+                                {% for photo in product.photos.all %}
+                                    <div class="carousel-item {% if photo.default %}active{% endif %}">
+                                        <img class="d-block w-100" src="{{ photo.file.url }}" alt="{{ product.name }}">
+                                    </div>
+                                {% endfor %}
+                            </div>
+
+                            {% if product.photos.all|length > 1 %}
+                                <a class="carousel-control-prev" href="#carouselIndicators{{ product }}" role="button" data-bs-slide="prev">
+                                    <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+                                    <span class="sr-only">Previous</span>
+                                </a>
+                                <a class="carousel-control-next" href="#carouselIndicators{{ product }}" role="button" data-bs-slide="next">
+                                    <span class="carousel-control-next-icon" aria-hidden="true"></span>
+                                    <span class="sr-only">Next</span>
+                                </a>
+                            {% endif %}
+
+                        </div>
+                    </div>
+                </div>
+
+                <div class="col-12 col-md-6 col-lg-5 col-xl-5">
+                    <div class="card">
+                        <div class="card-header">
+                            <h1>{{ product.name }}</h1>
+                        </div>
+                        <div class="card-body d-flex flex-column">
+                            {% if product.description %}
+                                {{ product.description|linebreaks }}
+                            {% endif %}
+                            <div class="mt-4 mb-4">
+                                <span class="display-5">R${{ product.price }}</span><br>
+                                <span>em até X vezes sem juros</span>
+                            </div>
+
+                            <div class="mb-4">
+                                {% regroup product.inventories.all by color as color_list %}
+                                {% for color in color_list %}
+                                    <p class="card-text mb-{% if forloop.last %}3{% else %}0{% endif %}">
+                                        <strong>{{ color.grouper }}</strong>
+                                        <br>
+                                        {% for item in color.list %}
+                                            <label class="form-check form-check-inline">
+                                                <input class="form-check-input" type="radio" name="color_size" value="{{item.color }}-{{ item.size }}"
+                                                {% if item.quantity == 0 %}disabled{% endif %}>
+                                                <span class="form-check-label">{{ item.size|upper }}</span>
+                                            </label>
+                                        {% endfor %}
+
+                                    </p>
+                                {% endfor %}
+                            </div>
+
+                            <div>
+                                <button type="submit" class="btn btn-lg btn-primary">Comprar</button>
+                            </div>
+
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock content %}

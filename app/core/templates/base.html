@@ -33,6 +33,14 @@
 					{% endfor %}
 				{% endif %}
 
+				<div class="d-sm-inline-block d-md-none">
+					<div class="card">
+						<div class="card-body p-1">
+							{% include 'partials/_search.html' %}
+						</div>
+					</div>
+				</div>
+
 				{% block content %}{% endblock content %}
 			</main>
 
