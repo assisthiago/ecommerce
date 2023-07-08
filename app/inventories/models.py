@@ -33,6 +33,7 @@ class Inventory(models.Model):
 
     class Meta:
         db_table = "inventory"
+        # ordering = ["color", "-size"]
         unique_together = ["color", "size", "product"]
         verbose_name = "inventário"
         verbose_name_plural = "inventários"

@@ -81,7 +81,7 @@
                             </div>
 
                             <div>
-                                <button type="submit" class="btn btn-lg btn-primary">Comprar</button>
+                                <button type="submit" class="btn btn-lg btn-primary" {% if not product.available %}disabled{% endif %}>Comprar</button>
                             </div>
 
                         </div>
