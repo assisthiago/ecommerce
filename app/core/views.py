@@ -13,7 +13,7 @@ from app.profiles.models import Profile
 def home(request):
     context = {
         "categories": Category.objects.all(),
-        "products": Product.objects.all(),
+        "products": Product.objects.availables(),
     }
 
     return render(request, "index.html", context=context)

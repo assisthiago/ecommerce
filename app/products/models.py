@@ -3,6 +3,7 @@ import uuid
 from django.db import models
 
 from app.categories.models import Category
+from app.products.managers import AvailablilityProductQuerySet
 
 
 class Product(models.Model):
@@ -20,6 +21,8 @@ class Product(models.Model):
         on_delete=models.CASCADE,
         verbose_name="categoria",
     )
+
+    objects = AvailablilityProductQuerySet.as_manager()
 
     def __str__(self):
         return str(self.id)[:8].upper()

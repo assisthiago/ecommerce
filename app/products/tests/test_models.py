@@ -2,7 +2,7 @@ from django.core.files.uploadedfile import SimpleUploadedFile
 from django.test import TestCase
 
 from app.categories.models import Category
-from app.products.admin import admin, ProductAdmin
+from app.products.admin import ProductAdmin, admin
 from app.products.models import Photo, Product
 
 
@@ -33,6 +33,14 @@ class ProductModelTest(TestCase):
         self.assertFalse(self.product.available)
 
 
+class AvailabilityProductManagerTest(TestCase):
+    fixtures = ["app/core/fixtures/products.json"]
+
+    def test_product_available(self):
+        queryset = Product.objects.available.count()
+        print(queryset)
+
+
 class PhotoModelTest(TestCase):
     def setUp(self):
         category = Category.objects.create(name="categoria")
@@ -56,10 +64,10 @@ class PhotoModelTest(TestCase):
 
 class ProductAdminTest(TestCase):
     fixtures = [
-        "app/core/fixtures/categories.json",
-        "app/core/fixtures/discounts.json",
-        "app/core/fixtures/inventories.json",
-        "app/core/fixtures/products.json",
+        "categories.json",
+        "products.json",
+        "discounts.json",
+        "inventories.json",
     ]
 
     def setUp(self):
